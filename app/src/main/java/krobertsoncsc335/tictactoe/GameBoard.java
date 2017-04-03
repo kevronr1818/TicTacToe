@@ -12,10 +12,6 @@ import android.graphics.Point;
 
 public class GameBoard {
     Paint paint = new Paint();
-    private int numHorizontalLines = 2;
-    private int numVerticalLines = 2;
-
-
 
     public void handleTouch(Point p){
 
@@ -26,15 +22,14 @@ public class GameBoard {
         canvas.drawColor(Color.BLUE);
 
         //draws lines going left to right
-        for(int i=0;i<(numHorizontalLines+1);i++){
-            canvas.drawRect(0, 250, 800, 250, paint);
-            canvas.drawLine(0, 450, 800, 450, paint);
+            canvas.drawLine(0, 175, 800, 175, paint);
+            canvas.drawLine(0, 375, 800, 375, paint);
+            canvas.drawLine(0, 575, 800, 575, paint);
 
-        }
         //draws lines going up and down
-        for(int i=0;i<numVerticalLines;i++){
-            canvas.drawLine(175, 0, 175, 800, paint);
-            canvas.drawLine(375, 0, 375, 800, paint);
-        }
+            canvas.drawLine(175, 0, 175, 600, paint);
+            canvas.drawLine(375, 0, 375, 600, paint);
+
+
     }
 }
