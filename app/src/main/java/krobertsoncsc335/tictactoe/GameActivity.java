@@ -24,6 +24,7 @@ public class GameActivity extends AppCompatActivity {
 
         // Set the view content to our surface view, not R.layout.activity_game
         setContentView(surfaceView);
+
     }
 
     @Override

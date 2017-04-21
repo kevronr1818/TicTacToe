@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 
 public class SplashActivity extends AppCompatActivity {
     private MediaPlayer mySound; //move to onCreate in menu options (if you end up creating that class)
@@ -14,6 +15,11 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         mySound = MediaPlayer.create(this, R.raw.introgamesound);
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        DisplayAdvisor.setScreenDimmensions(metrics);
 
         Thread timer = new Thread() {
             public void run() {

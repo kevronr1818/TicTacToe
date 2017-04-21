@@ -1,102 +1,119 @@
 package krobertsoncsc335.tictactoe;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.RectF;
-import android.view.SurfaceHolder;
-
-import java.util.ArrayList;
 
 /**
  * Created by Kevron on 3/31/2017.
  */
 
 public class GameBoard {
-    final float STROKE_WIDTH = 7;
-    final int PADDING = 25;
-
-    private int displayWidth;
-    private int displayHeight;
-
-    private int numHorizontalLines;
-    private int numVerticalLines;
-    private int lineSpacingVertical;
-    private int lineSpacingHorizontal;
-
-
+    private int[][] board = new int[3][3];
     Paint paint = new Paint();
-    //DrawThread boardThread;
-    //BoardThread boardThread;
-    SurfaceHolder boardHolder;
-    Context contxt;
+    BoardPosition boardPosition = BoardPosition.EMPTY;
 
-    public void handleTouch(Point p){
+    public GameBoard() {
+
+//Initiate the game board with blanks
+        for (int i = 0; i < 3; i++) {
+
+            for (int j = 0; j < 3; j++) {
+                board[i][j] = 0;
+            }
+
+        }
 
     }
 
-    /**Determines pixels**/
-    public void setDisplayConstants(Context context){
-        numHorizontalLines = 2;
-        numVerticalLines = 2;
-        displayWidth = context.getResources().getDisplayMetrics().widthPixels;
-        displayHeight=displayWidth;
-        lineSpacingVertical = displayWidth/(numVerticalLines+1);
-        lineSpacingHorizontal = displayHeight/(numHorizontalLines+1);
-        //displayHeight=displayMetrics.heightPixels - SYSTEM_BAR_OFFSET;
+
+    public void handleMove(Point p) {
+        //getting X or O to appear on screen
+        getColumnWidth();
+        getRowHeight();
+        //int columnWidth = 100;
+        //int rowHeight = 100;
+        int col = p.x/getColumnWidth();
+        int row = p.y/getRowHeight();
+
+        // Check that row and col are in bounds
+        board[row][col] = 1;
+
+
+
     }
+
+    public void drawMarkers(Canvas canvas) {
+        //paint.setARGB(255, 255, 0, 0);
+        //nested for loop to take row and col into x's y's
+        /*int x1 = col * columnWidth;
+        int y1 = row * rowHeight;
+        int x2 = x1+10;
+        int y2 = y1+10;
+        */
+
+
+        for (int r = 0; r < 3; r++){
+            for(int c =0; c < 3; c++){
+                if(board[r][c]==1)
+                canvas.drawCircle(c*getColumnWidth() + 20 ,r*getRowHeight() + 20, 20, paint);
+            }
+        }
+
+   }
 
 
     public void drawBoard(Canvas canvas) {
         canvas.drawColor(Color.BLUE);
 
+
         //draws lines going left to right
-            canvas.drawLine(0, 175, 800, 175, paint);
-            canvas.drawLine(0, 375, 800, 375, paint);
-            canvas.drawLine(0, 575, 800, 575, paint);
+        canvas.drawLine(0, 175, 800, 175, paint);
+        canvas.drawLine(0, 375, 800, 375, paint);
+        canvas.drawLine(0, 575, 800, 575, paint);
 
         //draws lines going up and down
-            canvas.drawLine(175, 0, 175, 575, paint);
-            canvas.drawLine(375, 0, 375, 575, paint);
-
+        canvas.drawLine(175, 0, 175, 575, paint);
+        canvas.drawLine(375, 0, 375, 575, paint);
 
     }
 
-    public void drawX(Canvas canvas, int row, int column){
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(STROKE_WIDTH*2);
-        paint.setColor(Color.BLACK);
-        canvas.drawLine(column*lineSpacingVertical+PADDING, row*lineSpacingHorizontal+PADDING, (column+1)*lineSpacingVertical-PADDING, (row+1)*lineSpacingHorizontal-PADDING, paint);
-        canvas.drawLine(column*lineSpacingVertical+PADDING, (row+1)*lineSpacingHorizontal-PADDING, (column+1)*lineSpacingVertical-PADDING, row*lineSpacingHorizontal+PADDING, paint);
-    }
+    public void clearBoard() {
+        for (int i = 0; i < 3; i++) {
 
-    private void drawO(Canvas canvas, int row, int column){
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(STROKE_WIDTH*2);
-        paint.setColor(Color.RED);
-        RectF oval = new RectF(column*lineSpacingVertical+PADDING, row*lineSpacingHorizontal+PADDING, (column+1)*lineSpacingVertical-PADDING, (row+1)*lineSpacingHorizontal-PADDING);
-        canvas.drawOval(oval, paint);
-        //canvas.drawCircle(row*lineSpacingVertical+lineSpacingVertical/2, column*lineSpacingHorizontal+lineSpacingHorizontal/2, 4*lineSpacingVertical/10, paint);
-    }
+            for (int j = 0; j < 3; j++) {
 
-    private void drawMoves(Canvas canvas){
+                board[i][j] = 0;
 
-        for(int i=0; i<2;i++){
-            for(int j=0; j<2;j++){
-                char ch = BoardPosition.PLAYER_ONE;
-                if(ch=='X'){
-                    drawX(canvas, i, j);
-                } else if(ch=='O'){
-                    drawO(canvas, i, j);
-                }
             }
+
         }
+
     }
 
-    public char getMove (int row, int column){
-        return gameBoard[row][column];
+    private int getColumnWidth(){
+
+        int columnWidth = DisplayAdvisor.maxX/3;
+        return columnWidth;
     }
+
+    private int getRowHeight(){
+
+        int rowHeight = DisplayAdvisor.maxY/3;
+        return rowHeight;
+    }
+
+
+/*
+    public void placeMove(int x, int y, String moveMade) {
+        if (board[x][y] == "") {
+            board[x][y] = moveMade;
+        }
+
+    }
+
+    */
+
 
 }

@@ -1,6 +1,7 @@
 package krobertsoncsc335.tictactoe;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.media.MediaPlayer;
@@ -17,6 +18,9 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
     private Thread thread = null;  // the thread that's doing the drawing.
     private GameBoard gameBoard = new GameBoard();
     private final MediaPlayer mySound;
+    private Bitmap letterOBitmap;
+    private Bitmap letterXBitmap;
+    private int positionX, positionY;
 
 
 
@@ -24,6 +28,10 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
         super(context);
         gameActivity = (GameActivity)context;
         //bugBitmap = DisplayAdvisor.loadBitmap(gameActivity.getResources(), R.drawable.bug);
+        positionX = (int)(50 * DisplayAdvisor.scaleX);
+        positionY = (int)(50 * DisplayAdvisor.scaleY);
+        letterOBitmap = DisplayAdvisor.loadScaledToIdeal(gameActivity.getResources(), (int)(100* DisplayAdvisor.scaleX), (int)(100 * DisplayAdvisor.scaleY), R.drawable.letter_o);
+        letterXBitmap = DisplayAdvisor.loadScaledToIdeal(gameActivity.getResources(), (int)(100* DisplayAdvisor.scaleX), (int)(100 * DisplayAdvisor.scaleY), R.drawable.letter_x);
         mySound = MediaPlayer.create(gameActivity, R.raw.introgamesound);
 
 
@@ -39,9 +47,11 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
             Canvas canvas = surfaceHolder.lockCanvas();
 
 
+
+
             if(gameActivity.wasTouched){
                 Point p = gameActivity.getTouch();
-                gameBoard.handleTouch(p);
+                gameBoard.handleMove(p);
                 //mySound.start();
             }
 
@@ -63,10 +73,12 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
     private void drawEverything(Canvas canvas) {
         canvas.drawARGB(255, 255, 0, 0);
         gameBoard.drawBoard(canvas);
-        gameBoard.setDisplayConstants(gameActivity);
+        gameBoard.drawMarkers(canvas);
+
 
 
     }
+
 
     public void onResume() {
         // We've become active.  Create a thread

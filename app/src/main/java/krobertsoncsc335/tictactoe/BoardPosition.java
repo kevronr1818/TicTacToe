@@ -6,7 +6,7 @@ package krobertsoncsc335.tictactoe;
 
 public enum BoardPosition {
 
-    PLAYER_ONE,PLAYER_TWO,EMPTY;
+    PLAYER_ONE, PLAYER_TWO, EMPTY;
 
-    BoardPosition [][] boardPosition = new BoardPosition[3][3];
+    //BoardPosition [][] boardPosition = new BoardPosition[3][3];
 }
