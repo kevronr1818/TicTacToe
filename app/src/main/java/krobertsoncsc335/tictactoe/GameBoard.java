@@ -69,13 +69,13 @@ public class GameBoard {
 
 
         //draws lines going left to right
-        canvas.drawLine(0, 175, 800, 175, paint);
-        canvas.drawLine(0, 375, 800, 375, paint);
-        canvas.drawLine(0, 575, 800, 575, paint);
+        canvas.drawLine(0, getRowHeight(), DisplayAdvisor.maxX, getRowHeight(), paint);
+        canvas.drawLine(0, getRowHeight() * 2, DisplayAdvisor.maxX, getRowHeight() * 2, paint);//getrowHeight x 2 same for column
+        canvas.drawLine(0, getRowHeight() * 3, DisplayAdvisor.maxX, getRowHeight() * 3, paint); //getrowHeight x3 same for column
 
         //draws lines going up and down
-        canvas.drawLine(175, 0, 175, 575, paint);
-        canvas.drawLine(375, 0, 375, 575, paint);
+        canvas.drawLine(getColumnWidth(), 0, getColumnWidth(), DisplayAdvisor.maxY, paint);
+        canvas.drawLine(getColumnWidth() * 2, 0, getColumnWidth() * 2, DisplayAdvisor.maxY, paint);
 
     }
 
