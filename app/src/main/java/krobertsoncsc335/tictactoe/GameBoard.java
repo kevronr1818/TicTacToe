@@ -1,5 +1,6 @@
 package krobertsoncsc335.tictactoe;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,6 +14,11 @@ public class GameBoard {
     private int[][] board = new int[3][3];
     Paint paint = new Paint();
     BoardPosition boardPosition = BoardPosition.EMPTY;
+    private Bitmap letterOBitmap;
+    private Bitmap letterXBitmap;
+    private GameActivity gameActivity;
+
+
 
     public GameBoard() {
 
@@ -40,8 +46,6 @@ public class GameBoard {
         // Check that row and col are in bounds
         board[row][col] = 1;
 
-
-
     }
 
     public void drawMarkers(Canvas canvas) {
@@ -52,12 +56,16 @@ public class GameBoard {
         int x2 = x1+10;
         int y2 = y1+10;
         */
+        letterOBitmap = DisplayAdvisor.loadBitmap(gameActivity.getResources(), R.drawable.letter_o);
+        letterOBitmap = DisplayAdvisor.loadScaledToIdeal(gameActivity.getResources(), (int)(300* DisplayAdvisor.scaleX), (int)(300 * DisplayAdvisor.scaleY), R.drawable.letter_o);
 
 
         for (int r = 0; r < 3; r++){
             for(int c =0; c < 3; c++){
                 if(board[r][c]==1)
-                canvas.drawCircle(c*getColumnWidth() + 20 ,r*getRowHeight() + 20, 20, paint);
+                //canvas.drawCircle(c*getColumnWidth() + 100 ,r*getRowHeight() + 100, 20, paint);
+
+                canvas.drawBitmap(letterOBitmap, r*getRowHeight() + 20, c*getColumnWidth() + 20, paint);
             }
         }
 
@@ -102,6 +110,10 @@ public class GameBoard {
 
         int rowHeight = DisplayAdvisor.maxY/3;
         return rowHeight;
+    }
+
+    public void setGameActivity(GameActivity gameActivity) {
+        this.gameActivity = gameActivity;
     }
 
 

@@ -17,7 +17,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
     boolean isRunning = false;     // true when activity is active and running
     private Thread thread = null;  // the thread that's doing the drawing.
     private GameBoard gameBoard = new GameBoard();
-    private final MediaPlayer mySound;
+    private final MediaPlayer mySoundOne;
     private Bitmap letterOBitmap;
     private Bitmap letterXBitmap;
     private int positionX, positionY;
@@ -32,7 +32,8 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
         positionY = (int)(50 * DisplayAdvisor.scaleY);
         letterOBitmap = DisplayAdvisor.loadScaledToIdeal(gameActivity.getResources(), (int)(100* DisplayAdvisor.scaleX), (int)(100 * DisplayAdvisor.scaleY), R.drawable.letter_o);
         letterXBitmap = DisplayAdvisor.loadScaledToIdeal(gameActivity.getResources(), (int)(100* DisplayAdvisor.scaleX), (int)(100 * DisplayAdvisor.scaleY), R.drawable.letter_x);
-        mySound = MediaPlayer.create(gameActivity, R.raw.introgamesound);
+        mySoundOne = MediaPlayer.create(gameActivity, R.raw.gametouchsound);
+        gameBoard.setGameActivity(gameActivity);
 
 
     }
@@ -52,7 +53,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
             if(gameActivity.wasTouched){
                 Point p = gameActivity.getTouch();
                 gameBoard.handleMove(p);
-                //mySound.start();
+                mySoundOne.start();
             }
 
 
@@ -74,8 +75,6 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
         canvas.drawARGB(255, 255, 0, 0);
         gameBoard.drawBoard(canvas);
         gameBoard.drawMarkers(canvas);
-
-
 
     }
 
