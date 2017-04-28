@@ -5,6 +5,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.util.Log;
+
+import java.util.Random;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Kevron on 3/31/2017.
@@ -17,6 +22,8 @@ public class GameBoard {
     private Bitmap letterOBitmap;
     private Bitmap letterXBitmap;
     private GameActivity gameActivity;
+
+
 
 
 
@@ -43,6 +50,8 @@ public class GameBoard {
         int col = p.x/getColumnWidth();
         int row = p.y/getRowHeight();
 
+        //TODO: Make sure spot on the board is 0....needs if statement
+
         // Check that row and col are in bounds
         board[row][col] = 1;
 
@@ -59,13 +68,16 @@ public class GameBoard {
         letterOBitmap = DisplayAdvisor.loadBitmap(gameActivity.getResources(), R.drawable.letter_o);
         letterOBitmap = DisplayAdvisor.loadScaledToIdeal(gameActivity.getResources(), (int)(300* DisplayAdvisor.scaleX), (int)(300 * DisplayAdvisor.scaleY), R.drawable.letter_o);
 
+        letterXBitmap = DisplayAdvisor.loadBitmap(gameActivity.getResources(), R.drawable.letter_x);
+        letterXBitmap = DisplayAdvisor.loadScaledToIdeal(gameActivity.getResources(), (int)(300* DisplayAdvisor.scaleX), (int)(300 * DisplayAdvisor.scaleY), R.drawable.letter_x);
 
         for (int r = 0; r < 3; r++){
             for(int c =0; c < 3; c++){
                 if(board[r][c]==1)
-                //canvas.drawCircle(c*getColumnWidth() + 100 ,r*getRowHeight() + 100, 20, paint);
+                //canvas.drawCircle(c*getColumnWidth() + 100 ,r*getRowHeight() + 100, 35, paint);
 
-                canvas.drawBitmap(letterOBitmap, r*getRowHeight() + 20, c*getColumnWidth() + 20, paint);
+                canvas.drawBitmap(letterOBitmap, c*getColumnWidth() + 50, r*getRowHeight() + 50, paint);
+                //canvas.drawBitmap(letterXBitmap, c*getColumnWidth() + 50, r*getRowHeight() + 50, paint);
             }
         }
 
@@ -117,15 +129,30 @@ public class GameBoard {
     }
 
 
-/*
-    public void placeMove(int x, int y, String moveMade) {
-        if (board[x][y] == "") {
-            board[x][y] = moveMade;
+    public void handleComputerMove(Canvas canvas) {
+        //nested for loop
+        //find first empty spot
+        //set spot as computer move
+
+        Random random = new Random();
+
+        int col = random.nextInt(3);
+        int row = random.nextInt(3);
+
+        board[row][col] = 2;
+
+        for (int r = 0; r < 3; r++){
+            for(int c =0; c < 3; c++){
+                if(board[r][c]==2)
+                    //canvas.drawCircle(c*getColumnWidth() + 100 ,r*getRowHeight() + 100, 35, paint);
+                    canvas.drawBitmap(letterXBitmap, c*getColumnWidth() + 50, r*getRowHeight() + 50, paint);
+
+            }
         }
 
     }
 
-    */
-
-
+    public boolean didHumanWin() {
+        return true;
+    }
 }

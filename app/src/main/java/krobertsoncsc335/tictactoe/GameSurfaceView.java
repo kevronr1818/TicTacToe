@@ -54,6 +54,14 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
                 Point p = gameActivity.getTouch();
                 gameBoard.handleMove(p);
                 mySoundOne.start();
+                if(gameBoard.didHumanWin()) {
+                    //start new activity that says who won
+                    mySoundOne.start();
+                }
+                else {
+                    gameBoard.handleComputerMove(canvas);
+                }
+
             }
 
 
