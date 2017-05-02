@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.util.Log;
 
 import java.util.Random;
@@ -22,6 +23,7 @@ public class GameBoard {
     private Bitmap letterOBitmap;
     private Bitmap letterXBitmap;
     private GameActivity gameActivity;
+    private MediaPlayer spotTakenSound;
 
 
 
@@ -37,6 +39,8 @@ public class GameBoard {
             }
 
         }
+
+
 
     }
 
@@ -78,6 +82,15 @@ public class GameBoard {
 
                 canvas.drawBitmap(letterOBitmap, c*getColumnWidth() + 50, r*getRowHeight() + 50, paint);
                 //canvas.drawBitmap(letterXBitmap, c*getColumnWidth() + 50, r*getRowHeight() + 50, paint);
+            }
+        }
+
+        for (int r = 0; r < 3; r++){
+            for(int c =0; c < 3; c++){
+                if(board[r][c]==2) {
+                    //canvas.drawCircle(c*getColumnWidth() + 100 ,r*getRowHeight() + 100, 35, paint);
+                    canvas.drawBitmap(letterXBitmap, c * getColumnWidth() + 50, r * getRowHeight() + 50, paint);
+                }
             }
         }
 
@@ -134,25 +147,151 @@ public class GameBoard {
         //find first empty spot
         //set spot as computer move
 
-        Random random = new Random();
+        //Random random = new Random();
 
-        int col = random.nextInt(3);
-        int row = random.nextInt(3);
+        //int col = random.nextInt(3);
+        //int row = random.nextInt(3);
 
-        board[row][col] = 2;
+        //board[row][col] = 2;
 
-        for (int r = 0; r < 3; r++){
-            for(int c =0; c < 3; c++){
-                if(board[r][c]==2)
-                    //canvas.drawCircle(c*getColumnWidth() + 100 ,r*getRowHeight() + 100, 35, paint);
-                    canvas.drawBitmap(letterXBitmap, c*getColumnWidth() + 50, r*getRowHeight() + 50, paint);
+        //in handleComputerMove:
+//while (true)
+//pick random row/col
+//if row or col is empty, put 2 in spot and return (empty return)
+//
+        while(true){
+            Random random = new Random();
+
+            int col = random.nextInt(3);
+            int row = random.nextInt(3);
+
+            if(board[row][col]==0) {
+
+                board[row][col] = 2;
+            }
+
+            if(board[row][col]==1) {
+
+                //board[row][col] = 2;
+                spotTakenSound = MediaPlayer.create(gameActivity, R.raw.takenspotsound);
+                spotTakenSound.start();
+                board[row][col] = 3;
 
             }
+
+            return;
         }
+
+
 
     }
 
     public boolean didHumanWin() {
-        return true;
+        ///test 1 (across in top row)
+        if(board[0][0]==1 &&  board[0][0]==(board[0][1]) &&
+                board[0][1]== (board[0][2]))
+        {
+            return true;
+        }
+        ///test2 (across in middle row)
+        if(board[1][0]==1&&  board[1][0]==(board[1][1]) &&
+                board[1][1]==(board[1][2]))
+        {
+            return true;
+        }
+        ///test3 (across in bottom row)
+        if(board[2][0]==1 &&  board[2][0]==(board[2][1]) &&
+                board[2][1]==(board[2][2]))
+        {
+            return true;
+        }
+        ///test4 (down in first column)
+        if(board[0][0]==1 &&  board[0][0]==(board[1][0]) &&
+                board[1][0]==(board[2][0]))
+        {
+            return true;
+        }
+
+        ///test5 (down in second column)
+        if(board[0][1]==1 &&  board[0][1]==(board[1][1]) &&
+                board[1][1]==(board[2][1]))
+        {
+            return true;
+        }
+        ///test6 (down in third column)
+        if(board[0][2]==1 &&  board[0][2]==(board[1][2]) &&
+                board[1][2]==(board[2][2]))
+        {
+            return true;
+        }
+        ///test7 (diagonal from left to right)
+        if(board[0][0]==1 &&  board[0][0]==(board[1][1]) &&
+                board[1][1]==(board[2][2]))
+        {
+            return true;
+        }
+        ///test8 (diagonal from right to left)
+        if(board[0][2]==1&&  board[0][2]==(board[1][1]) &&
+                board[1][1]==(board[2][0]))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean didComputerWin() {
+        ///test 1 (across in top row)
+        if(board[0][0]==2 &&  board[0][0]==(board[0][1]) &&
+                board[0][1]== (board[0][2]))
+        {
+            return true;
+        }
+        ///test2 (across in middle row)
+        if(board[1][0]==2&&  board[1][0]==(board[1][1]) &&
+                board[1][1]==(board[1][2]))
+        {
+            return true;
+        }
+        ///test3 (across in bottom row)
+        if(board[2][0]==2 &&  board[2][0]==(board[2][1]) &&
+                board[2][1]==(board[2][2]))
+        {
+            return true;
+        }
+        ///test4 (down in first column)
+        if(board[0][0]==2 &&  board[0][0]==(board[1][0]) &&
+                board[1][0]==(board[2][0]))
+        {
+            return true;
+        }
+
+        ///test5 (down in second column)
+        if(board[0][1]==2 &&  board[0][1]==(board[1][1]) &&
+                board[1][1]==(board[2][1]))
+        {
+            return true;
+        }
+        ///test6 (down in third column)
+        if(board[0][2]==2 &&  board[0][2]==(board[1][2]) &&
+                board[1][2]==(board[2][2]))
+        {
+            return true;
+        }
+        ///test7 (diagonal from left to right)
+        if(board[0][0]==2 &&  board[0][0]==(board[1][1]) &&
+                board[1][1]==(board[2][2]))
+        {
+            return true;
+        }
+        ///test8 (diagonal from right to left)
+        if(board[0][2]==2&&  board[0][2]==(board[1][1]) &&
+                board[1][1]==(board[2][0]))
+        {
+            return true;
+        }
+
+        return false;
     }
 }
+

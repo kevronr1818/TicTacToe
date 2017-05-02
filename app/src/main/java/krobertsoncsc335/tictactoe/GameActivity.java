@@ -1,5 +1,6 @@
 package krobertsoncsc335.tictactoe;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +26,27 @@ public class GameActivity extends AppCompatActivity {
         // Set the view content to our surface view, not R.layout.activity_game
         setContentView(surfaceView);
 
+    }
+
+    public void showHumanWon(){
+        Intent intent = new Intent(GameActivity.this, ResultActivity.class);
+        intent.putExtra("result", "YOU WON!");
+        startActivity(intent);
+        finish();
+    }
+
+    public void showComputerWon(){
+        Intent intent = new Intent(GameActivity.this, ResultActivity.class);
+        intent.putExtra("result", "COMPUTER WON!");
+        startActivity(intent);
+        finish();
+    }
+
+    public void showTie(){
+        Intent intent = new Intent(GameActivity.this, ResultActivity.class);
+        intent.putExtra("result", "TIE GAME!");
+        startActivity(intent);
+        finish();
     }
 
     @Override

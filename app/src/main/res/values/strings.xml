@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Kevron\'s Tic-Tac-Toe</string>
+
+    <string name="result">The winner is: </string>
+    <string name="play_again">Play Again?</string>
+
 </resources>

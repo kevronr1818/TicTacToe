@@ -1,6 +1,7 @@
 package krobertsoncsc335.tictactoe;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
@@ -53,11 +54,17 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
             if(gameActivity.wasTouched){
                 Point p = gameActivity.getTouch();
                 gameBoard.handleMove(p);
+
                 mySoundOne.start();
                 if(gameBoard.didHumanWin()) {
                     //start new activity that says who won
-                    mySoundOne.start();
+                    gameActivity.showHumanWon();
+                    //gameBoard.handleComputerMove(canvas);
                 }
+                else if(gameBoard.didComputerWin()){
+                    gameActivity.showComputerWon();
+                }
+
                 else {
                     gameBoard.handleComputerMove(canvas);
                 }
