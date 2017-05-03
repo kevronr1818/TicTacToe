@@ -30,21 +30,21 @@ public class GameActivity extends AppCompatActivity {
 
     public void showHumanWon(){
         Intent intent = new Intent(GameActivity.this, ResultActivity.class);
-        intent.putExtra("result", "YOU WON!");
+        intent.putExtra("result", getResources().getString(R.string.human_won));
         startActivity(intent);
         finish();
     }
 
     public void showComputerWon(){
         Intent intent = new Intent(GameActivity.this, ResultActivity.class);
-        intent.putExtra("result", "COMPUTER WON!");
+        intent.putExtra("result", getResources().getString(R.string.computer_won));
         startActivity(intent);
         finish();
     }
 
     public void showTie(){
         Intent intent = new Intent(GameActivity.this, ResultActivity.class);
-        intent.putExtra("result", "TIE GAME!");
+        intent.putExtra("result", getResources().getString(R.string.tie));
         startActivity(intent);
         finish();
     }

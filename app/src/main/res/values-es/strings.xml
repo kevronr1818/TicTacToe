@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kevron\'s Tic-Tac-Toe</string>
+    <string name="play_again">¿Juega de nuevo?</string>
+    <string name="computer_won">\"La computadora ganó \"</string>
+    <string name="human_won">Tú ganaste</string>
+    <string name="tie">No ganador</string>
+    <string name="result">El ganador es</string>
+</resources>

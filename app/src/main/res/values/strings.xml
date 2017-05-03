@@ -4,4 +4,10 @@
     <string name="result">The winner is: </string>
     <string name="play_again">Play Again?</string>
 
+    <string name="human_won">You won!</string>
+
+    <string name="computer_won">Computer won</string>
+
+    <string name="tie">No winner</string>
+
 </resources>

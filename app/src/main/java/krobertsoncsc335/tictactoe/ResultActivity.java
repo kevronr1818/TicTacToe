@@ -22,11 +22,11 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     public void playAgainClicked (View view){
-        Intent i = getApplicationContext().getPackageManager()
+        Intent intent = getApplicationContext().getPackageManager()
                 .getLaunchIntentForPackage(getApplicationContext().getPackageName() );
 
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
-        startActivity(i);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK );
+        startActivity(intent);
 
     }
 }

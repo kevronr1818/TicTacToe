@@ -170,12 +170,14 @@ public class GameBoard {
                 board[row][col] = 2;
             }
 
-            if(board[row][col]==1) {
+            else if(board[row][col]==1) {
 
                 //board[row][col] = 2;
                 spotTakenSound = MediaPlayer.create(gameActivity, R.raw.takenspotsound);
                 spotTakenSound.start();
-                board[row][col] = 3;
+                int newCol = random.nextInt(3);
+                int newRow = random.nextInt(3);
+                board[newRow][newCol] = 2;
 
             }
 
