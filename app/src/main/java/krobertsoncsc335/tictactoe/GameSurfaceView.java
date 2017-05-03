@@ -59,7 +59,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
                 if(gameBoard.didHumanWin()) {
                     //start new activity that says who won
                     gameActivity.showHumanWon();
-                    //gameBoard.handleComputerMove(canvas);
+
                 }
                 else if(gameBoard.didComputerWin()){
                     gameActivity.showComputerWon();

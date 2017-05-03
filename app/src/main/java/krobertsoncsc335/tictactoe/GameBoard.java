@@ -6,11 +6,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.media.MediaPlayer;
-import android.util.Log;
+
 
 import java.util.Random;
 
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by Kevron on 3/31/2017.
@@ -46,29 +45,31 @@ public class GameBoard {
 
 
     public void handleMove(Point p) {
-        //getting X or O to appear on screen
+
         getColumnWidth();
         getRowHeight();
-        //int columnWidth = 100;
-        //int rowHeight = 100;
+
         int col = p.x/getColumnWidth();
         int row = p.y/getRowHeight();
 
         //TODO: Make sure spot on the board is 0....needs if statement
 
         // Check that row and col are in bounds
-        board[row][col] = 1;
+        if(board[row][col]!=0){
+            spotTakenSound = MediaPlayer.create(gameActivity, R.raw.takenspotsound);
+            spotTakenSound.start();
+        }
+        else{
+            board[row][col] = 1;
+        }
+
 
     }
 
     public void drawMarkers(Canvas canvas) {
-        //paint.setARGB(255, 255, 0, 0);
-        //nested for loop to take row and col into x's y's
-        /*int x1 = col * columnWidth;
-        int y1 = row * rowHeight;
-        int x2 = x1+10;
-        int y2 = y1+10;
-        */
+
+
+
         letterOBitmap = DisplayAdvisor.loadBitmap(gameActivity.getResources(), R.drawable.letter_o);
         letterOBitmap = DisplayAdvisor.loadScaledToIdeal(gameActivity.getResources(), (int)(300* DisplayAdvisor.scaleX), (int)(300 * DisplayAdvisor.scaleY), R.drawable.letter_o);
 
@@ -78,10 +79,9 @@ public class GameBoard {
         for (int r = 0; r < 3; r++){
             for(int c =0; c < 3; c++){
                 if(board[r][c]==1)
-                //canvas.drawCircle(c*getColumnWidth() + 100 ,r*getRowHeight() + 100, 35, paint);
 
                 canvas.drawBitmap(letterOBitmap, c*getColumnWidth() + 50, r*getRowHeight() + 50, paint);
-                //canvas.drawBitmap(letterXBitmap, c*getColumnWidth() + 50, r*getRowHeight() + 50, paint);
+
             }
         }
 
@@ -143,24 +143,9 @@ public class GameBoard {
 
 
     public void handleComputerMove(Canvas canvas) {
-        //nested for loop
-        //find first empty spot
-        //set spot as computer move
-
-        //Random random = new Random();
-
-        //int col = random.nextInt(3);
-        //int row = random.nextInt(3);
-
-        //board[row][col] = 2;
-
-        //in handleComputerMove:
-//while (true)
-//pick random row/col
-//if row or col is empty, put 2 in spot and return (empty return)
-//
+        Random random = new Random();
         while(true){
-            Random random = new Random();
+
 
             int col = random.nextInt(3);
             int row = random.nextInt(3);
@@ -168,20 +153,10 @@ public class GameBoard {
             if(board[row][col]==0) {
 
                 board[row][col] = 2;
+                return;
             }
 
-            else if(board[row][col]==1) {
 
-                //board[row][col] = 2;
-                spotTakenSound = MediaPlayer.create(gameActivity, R.raw.takenspotsound);
-                spotTakenSound.start();
-                int newCol = random.nextInt(3);
-                int newRow = random.nextInt(3);
-                board[newRow][newCol] = 2;
-
-            }
-
-            return;
         }
 
 
