@@ -18,7 +18,6 @@ import java.util.Random;
 public class GameBoard {
     private int[][] board = new int[3][3];
     Paint paint = new Paint();
-    BoardPosition boardPosition = BoardPosition.EMPTY;
     private Bitmap letterOBitmap;
     private Bitmap letterXBitmap;
     private GameActivity gameActivity;
@@ -52,8 +51,6 @@ public class GameBoard {
         int col = p.x/getColumnWidth();
         int row = p.y/getRowHeight();
 
-        //TODO: Make sure spot on the board is 0....needs if statement
-
         // Check that row and col are in bounds
         if(board[row][col]!=0){
             spotTakenSound = MediaPlayer.create(gameActivity, R.raw.takenspotsound);
@@ -62,8 +59,6 @@ public class GameBoard {
         else{
             board[row][col] = 1;
         }
-
-
     }
     //draw either an O or X to the screen
     public void drawMarkers(Canvas canvas) {
@@ -141,9 +136,15 @@ public class GameBoard {
 
 
     public void handleComputerMove() {
-       makeRandomComputerMove();
-       makeComputerWin();
-       blockHumanWin();
+
+       if (makeComputerWin()== false){
+           makeRandomComputerMove();
+           blockHumanWin();
+       }
+       else{
+           makeComputerWin();
+       }
+
     }
 
     public boolean blockHumanWin() {
@@ -154,13 +155,13 @@ public class GameBoard {
             board[0][2]= 2;
             return true;
         }
-        if(board[0][0]==1 &&  board[0][0]==(board[0][2]) &&
+        else if(board[0][0]==1 &&  board[0][0]==(board[0][2]) &&
                 board[0][1]==0)
         {
             board[0][1]= 2;
             return true;
         }
-        if(board[0][2]==1 &&  board[0][2]==(board[0][1]) &&
+        else if(board[0][2]==1 &&  board[0][2]==(board[0][1]) &&
                 board[0][0]==0)
         {
             board[0][0]= 2;
@@ -174,13 +175,13 @@ public class GameBoard {
             board[1][2]= 2;
             return true;
         }
-        if(board[1][0]==1&&  board[1][0]==(board[1][2]) &&
+        else if(board[1][0]==1&&  board[1][0]==(board[1][2]) &&
                 board[1][1]==0)
         {
             board[1][1]= 2;
             return true;
         }
-        if(board[1][2]==1&&  board[1][2]==(board[1][1]) &&
+        else if(board[1][2]==1&&  board[1][2]==(board[1][1]) &&
                 board[1][0]==0)
         {
             board[1][0]= 2;
@@ -194,13 +195,13 @@ public class GameBoard {
             board[2][2]= 2;
             return true;
         }
-        if(board[2][0]==1 &&  board[2][0]==(board[2][2]) &&
+        else if(board[2][0]==1 &&  board[2][0]==(board[2][2]) &&
                 board[2][1]==0)
         {
             board[2][1]= 2;
             return true;
         }
-        if(board[2][2]==1 &&  board[2][2]==(board[2][1]) &&
+        else if(board[2][2]==1 &&  board[2][2]==(board[2][1]) &&
                 board[2][0]==0)
         {
             board[2][0]= 2;
@@ -214,13 +215,13 @@ public class GameBoard {
             board[2][0]= 2;
             return true;
         }
-        if(board[0][0]==1 &&  board[0][0]==(board[2][0]) &&
+        else if(board[0][0]==1 &&  board[0][0]==(board[2][0]) &&
                 board[1][0]==0)
         {
             board[1][0]= 2;
             return true;
         }
-        if(board[2][0]==1 &&  board[0][0]==(board[1][0]) &&
+        else if(board[2][0]==1 &&  board[0][0]==(board[1][0]) &&
                 board[0][0]==0)
         {
             board[0][0]= 2;
@@ -234,13 +235,13 @@ public class GameBoard {
             board[2][1]= 2;
             return true;
         }
-        if(board[0][1]==1 &&  board[0][1]==(board[2][1]) &&
+        else if(board[0][1]==1 &&  board[0][1]==(board[2][1]) &&
                 board[1][1]==0)
         {
             board[1][1]= 2;
             return true;
         }
-        if(board[2][1]==1 &&  board[2][1]==(board[1][1]) &&
+        else if(board[2][1]==1 &&  board[2][1]==(board[1][1]) &&
                 board[0][1]==0)
         {
             board[0][1]= 2;
@@ -254,13 +255,13 @@ public class GameBoard {
             board[2][2]= 2;
             return true;
         }
-        if(board[0][2]==1 &&  board[0][2]==(board[2][2]) &&
+        else if(board[0][2]==1 &&  board[0][2]==(board[2][2]) &&
                 board[1][2]==0)
         {
             board[1][2]= 2;
             return true;
         }
-        if(board[2][2]==1 &&  board[2][2]==(board[1][2]) &&
+        else if(board[2][2]==1 &&  board[2][2]==(board[1][2]) &&
                 board[0][2]==0)
         {
             board[0][2]= 2;
@@ -274,13 +275,13 @@ public class GameBoard {
             board[2][2]= 2;
             return true;
         }
-        if(board[0][0]==1 &&  board[0][0]==(board[2][2]) &&
+        else if(board[0][0]==1 &&  board[0][0]==(board[2][2]) &&
                 board[1][1]==0)
         {
             board[1][1]= 2;
             return true;
         }
-        if(board[2][2]==1 &&  board[2][2]==(board[1][1]) &&
+        else if(board[2][2]==1 &&  board[2][2]==(board[1][1]) &&
                 board[0][0]==0)
         {
             board[0][0]= 2;
@@ -294,13 +295,13 @@ public class GameBoard {
             board[2][0]= 2;
             return true;
         }
-        if(board[0][2]==1 &&  board[0][2]==(board[2][0]) &&
+        else if(board[0][2]==1 &&  board[0][2]==(board[2][0]) &&
                 board[1][1]==0)
         {
             board[1][1]= 2;
             return true;
         }
-        if(board[2][0]==1 &&  board[2][0]==(board[1][1]) &&
+        else if(board[2][0]==1 &&  board[2][0]==(board[1][1]) &&
                 board[0][2]==0)
         {
             board[0][2]= 2;

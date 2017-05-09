@@ -4,24 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/splash_background"
     tools:context="krobertsoncsc335.tictactoe.ResultActivity">
 
     <TextView
         android:id="@+id/txtResult"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="161dp"
-        android:text="@string/result" />
+        android:text="@string/result"
+        android:textColor="@android:color/holo_blue_dark" />
 
     <Button
         android:id="@+id/btnPlayAgain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/txtResult"
-        android:layout_below="@+id/txtResult"
-        android:layout_marginTop="67dp"
+        android:backgroundTint="@android:color/black"
         android:onClick="playAgainClicked"
-        android:text="@string/play_again" />
+        android:text="@string/play_again"
+        android:textColor="@android:color/holo_blue_dark"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="37dp" />
 </RelativeLayout>
