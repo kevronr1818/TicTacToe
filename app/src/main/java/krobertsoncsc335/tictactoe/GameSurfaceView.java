@@ -1,7 +1,6 @@
 package krobertsoncsc335.tictactoe;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
@@ -18,7 +17,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
     boolean isRunning = false;     // true when activity is active and running
     private Thread thread = null;  // the thread that's doing the drawing.
     private GameBoard gameBoard = new GameBoard();
-    private final MediaPlayer mySoundOne;
+    private final MediaPlayer touchSound;
     private Bitmap letterOBitmap;
     private Bitmap letterXBitmap;
     private int positionX, positionY;
@@ -33,7 +32,7 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
         positionY = (int)(50 * DisplayAdvisor.scaleY);
         letterOBitmap = DisplayAdvisor.loadScaledToIdeal(gameActivity.getResources(), (int)(100* DisplayAdvisor.scaleX), (int)(100 * DisplayAdvisor.scaleY), R.drawable.letter_o);
         letterXBitmap = DisplayAdvisor.loadScaledToIdeal(gameActivity.getResources(), (int)(100* DisplayAdvisor.scaleX), (int)(100 * DisplayAdvisor.scaleY), R.drawable.letter_x);
-        mySoundOne = MediaPlayer.create(gameActivity, R.raw.gametouchsound);
+        touchSound = MediaPlayer.create(gameActivity, R.raw.gametouchsound);
         gameBoard.setGameActivity(gameActivity);
 
 
@@ -55,20 +54,22 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
                 Point p = gameActivity.getTouch();
                 gameBoard.handleMove(p);
 
-                mySoundOne.start();
+                touchSound.start();
+
                 if(gameBoard.didHumanWin()) {
                     //start new activity that says who won
                     gameActivity.showHumanWon();
 
                 }
-                else if(gameBoard.didComputerWin()){
-                    gameActivity.showComputerWon();
-                }
-
                 else {
-                    gameBoard.handleComputerMove(canvas);
-                }
+                    gameBoard.handleComputerMove();
 
+                    if(gameBoard.didComputerWin()){
+                        gameActivity.showComputerWon();
+                    }
+
+
+                }
             }
 
 

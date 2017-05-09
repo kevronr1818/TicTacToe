@@ -43,7 +43,7 @@ public class GameBoard {
 
     }
 
-
+    //Handles the human move
     public void handleMove(Point p) {
 
         getColumnWidth();
@@ -65,10 +65,8 @@ public class GameBoard {
 
 
     }
-
+    //draw either an O or X to the screen
     public void drawMarkers(Canvas canvas) {
-
-
 
         letterOBitmap = DisplayAdvisor.loadBitmap(gameActivity.getResources(), R.drawable.letter_o);
         letterOBitmap = DisplayAdvisor.loadScaledToIdeal(gameActivity.getResources(), (int)(300* DisplayAdvisor.scaleX), (int)(300 * DisplayAdvisor.scaleY), R.drawable.letter_o);
@@ -96,7 +94,7 @@ public class GameBoard {
 
    }
 
-
+    //Draws the game board
     public void drawBoard(Canvas canvas) {
         canvas.drawColor(Color.BLUE);
 
@@ -142,10 +140,180 @@ public class GameBoard {
     }
 
 
-    public void handleComputerMove(Canvas canvas) {
+    public void handleComputerMove() {
+       makeRandomComputerMove();
+       makeComputerWin();
+       blockHumanWin();
+    }
+
+    public boolean blockHumanWin() {
+        ///test 1 (across in top row)
+        if(board[0][0]==1 &&  board[0][0]==(board[0][1]) &&
+                board[0][2]==0)
+        {
+            board[0][2]= 2;
+            return true;
+        }
+        if(board[0][0]==1 &&  board[0][0]==(board[0][2]) &&
+                board[0][1]==0)
+        {
+            board[0][1]= 2;
+            return true;
+        }
+        if(board[0][2]==1 &&  board[0][2]==(board[0][1]) &&
+                board[0][0]==0)
+        {
+            board[0][0]= 2;
+            return true;
+        }
+
+        ///test2 (across in middle row)
+        if(board[1][0]==1&&  board[1][0]==(board[1][1]) &&
+                board[1][2]==0)
+        {
+            board[1][2]= 2;
+            return true;
+        }
+        if(board[1][0]==1&&  board[1][0]==(board[1][2]) &&
+                board[1][1]==0)
+        {
+            board[1][1]= 2;
+            return true;
+        }
+        if(board[1][2]==1&&  board[1][2]==(board[1][1]) &&
+                board[1][0]==0)
+        {
+            board[1][0]= 2;
+            return true;
+        }
+
+        ///test3 (across in bottom row)
+        if(board[2][0]==1 &&  board[2][0]==(board[2][1]) &&
+                board[2][2]==0)
+        {
+            board[2][2]= 2;
+            return true;
+        }
+        if(board[2][0]==1 &&  board[2][0]==(board[2][2]) &&
+                board[2][1]==0)
+        {
+            board[2][1]= 2;
+            return true;
+        }
+        if(board[2][2]==1 &&  board[2][2]==(board[2][1]) &&
+                board[2][0]==0)
+        {
+            board[2][0]= 2;
+            return true;
+        }
+
+        ///test4 (down in first column)
+        if(board[0][0]==1 &&  board[0][0]==(board[1][0]) &&
+                board[2][0]==0)
+        {
+            board[2][0]= 2;
+            return true;
+        }
+        if(board[0][0]==1 &&  board[0][0]==(board[2][0]) &&
+                board[1][0]==0)
+        {
+            board[1][0]= 2;
+            return true;
+        }
+        if(board[2][0]==1 &&  board[0][0]==(board[1][0]) &&
+                board[0][0]==0)
+        {
+            board[0][0]= 2;
+            return true;
+        }
+
+        ///test5 (down in second column)
+        if(board[0][1]==1 &&  board[0][1]==(board[1][1]) &&
+                board[2][1]==0)
+        {
+            board[2][1]= 2;
+            return true;
+        }
+        if(board[0][1]==1 &&  board[0][1]==(board[2][1]) &&
+                board[1][1]==0)
+        {
+            board[1][1]= 2;
+            return true;
+        }
+        if(board[2][1]==1 &&  board[2][1]==(board[1][1]) &&
+                board[0][1]==0)
+        {
+            board[0][1]= 2;
+            return true;
+        }
+
+        ///test6 (down in third column)
+        if(board[0][2]==1 &&  board[0][2]==(board[1][2]) &&
+                board[2][2]==0)
+        {
+            board[2][2]= 2;
+            return true;
+        }
+        if(board[0][2]==1 &&  board[0][2]==(board[2][2]) &&
+                board[1][2]==0)
+        {
+            board[1][2]= 2;
+            return true;
+        }
+        if(board[2][2]==1 &&  board[2][2]==(board[1][2]) &&
+                board[0][2]==0)
+        {
+            board[0][2]= 2;
+            return true;
+        }
+
+        ///test7 (diagonal from left to right)
+        if(board[0][0]==1 &&  board[0][0]==(board[1][1]) &&
+                board[2][2]==0)
+        {
+            board[2][2]= 2;
+            return true;
+        }
+        if(board[0][0]==1 &&  board[0][0]==(board[2][2]) &&
+                board[1][1]==0)
+        {
+            board[1][1]= 2;
+            return true;
+        }
+        if(board[2][2]==1 &&  board[2][2]==(board[1][1]) &&
+                board[0][0]==0)
+        {
+            board[0][0]= 2;
+            return true;
+        }
+
+        ///test8 (diagonal from right to left)
+        if(board[0][2]==1 &&  board[0][2]==(board[1][1]) &&
+                board[2][0]==0)
+        {
+            board[2][0]= 2;
+            return true;
+        }
+        if(board[0][2]==1 &&  board[0][2]==(board[2][0]) &&
+                board[1][1]==0)
+        {
+            board[1][1]= 2;
+            return true;
+        }
+        if(board[2][0]==1 &&  board[2][0]==(board[1][1]) &&
+                board[0][2]==0)
+        {
+            board[0][2]= 2;
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public void makeRandomComputerMove() {
         Random random = new Random();
         while(true){
-
 
             int col = random.nextInt(3);
             int row = random.nextInt(3);
@@ -155,11 +323,70 @@ public class GameBoard {
                 board[row][col] = 2;
                 return;
             }
-
-
         }
 
+    }
 
+    public boolean makeComputerWin(){
+        ///test 1 (across in top row)
+        if(board[0][0]==2 &&  board[0][0]==(board[0][1]) &&
+                board[0][2]==0)
+        {
+            board[0][2]= 2;
+            return true;
+        }
+        ///test2 (across in middle row)
+        if(board[1][0]==2&&  board[1][0]==(board[1][1]) &&
+                board[1][2]==0)
+        {
+            board[1][2]= 2;
+            return true;
+        }
+        ///test3 (across in bottom row)
+        if(board[2][0]==2 &&  board[2][0]==(board[2][1]) &&
+                board[2][2]==0)
+        {
+            board[2][2]= 2;
+            return true;
+        }
+        ///test4 (down in first column)
+        if(board[0][0]==2 &&  board[0][0]==(board[1][0]) &&
+                board[2][0]==0)
+        {
+            board[2][0]= 2;
+            return true;
+        }
+
+        ///test5 (down in second column)
+        if(board[0][1]==2 &&  board[0][1]==(board[1][1]) &&
+                board[2][1]==0)
+        {
+            board[2][1]= 2;
+            return true;
+        }
+        ///test6 (down in third column)
+        if(board[0][2]==2 &&  board[0][2]==(board[1][2]) &&
+                board[2][2]==0)
+        {
+            board[2][2]= 2;
+            return true;
+        }
+        ///test7 (diagonal from left to right)
+        if(board[0][0]==2 &&  board[0][0]==(board[1][1]) &&
+                board[2][2]==0)
+        {
+            board[2][2]= 2;
+            return true;
+        }
+        ///test8 (diagonal from right to left)
+        if(board[0][2]==2&&  board[0][2]==(board[1][1]) &&
+                board[2][0]==0)
+        {
+            board[2][0]= 2;
+            return true;
+        }
+
+        return false;
 
     }
 
