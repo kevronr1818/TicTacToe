@@ -9,12 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GameActivity">
+
+        <activity android:name=".GameActivity"
+            android:screenOrientation ="portrait">
+
             <intent-filter>
                 <action android:name="krobertsoncsc335.GAMEACTIVITY" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
+
         </activity>
         <activity android:name=".SplashActivity">
             <intent-filter>

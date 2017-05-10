@@ -31,15 +31,10 @@ public class GameBoard {
 
 //Initiate the game board with blanks
         for (int i = 0; i < 3; i++) {
-
             for (int j = 0; j < 3; j++) {
                 board[i][j] = 0;
             }
-
         }
-
-
-
     }
 
     //Handles the human move
@@ -138,11 +133,13 @@ public class GameBoard {
     public void handleComputerMove() {
 
        if (makeComputerWin()== false){
-           makeRandomComputerMove();
-           blockHumanWin();
+
+              blockHumanWin();
        }
-       else{
-           makeComputerWin();
+       else
+           if(blockHumanWin() == false){
+
+               makeComputerWin();
        }
 
     }
@@ -307,7 +304,7 @@ public class GameBoard {
             board[0][2]= 2;
             return true;
         }
-
+        //makeRandomComputerMove();
         return false;
 
     }
@@ -386,7 +383,7 @@ public class GameBoard {
             board[2][0]= 2;
             return true;
         }
-
+        //makeRandomComputerMove();
         return false;
 
     }
@@ -498,5 +495,27 @@ public class GameBoard {
 
         return false;
     }
+
+    public boolean didGameTie() {
+        for (int r = 0; r < 3; r++) {
+            for (int c = 0; c < 3; c++) {
+                if(board[r][c] == 0){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
+/*
+   for (int r = 0; r < 3; r++) {
+        for (int c = 0; c < 3; c++) {
+        if(didHumanWin() == false && didComputerWin() == false
+        && board[r][c] != 0){
+        return true;
+        }
+        }
+        }
+
+        */
 

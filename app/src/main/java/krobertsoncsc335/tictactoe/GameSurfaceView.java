@@ -22,8 +22,6 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
     private Bitmap letterXBitmap;
     private int positionX, positionY;
 
-
-
     public GameSurfaceView(Context context) {
         super(context);
         gameActivity = (GameActivity)context;
@@ -47,9 +45,6 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
             }
             Canvas canvas = surfaceHolder.lockCanvas();
 
-
-
-
             if(gameActivity.wasTouched){
                 Point p = gameActivity.getTouch();
                 gameBoard.handleMove(p);
@@ -67,18 +62,18 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
                     if(gameBoard.didComputerWin()){
                         gameActivity.showComputerWon();
                     }
+                }
 
-
+                if(gameBoard.didGameTie()){
+                    gameActivity.showTie();
                 }
             }
-
 
             drawEverything(canvas);
 
             // Display our canvas
             surfaceHolder.unlockCanvasAndPost(canvas);
 
-            
             try {
                 Thread.sleep(175);
             } catch (InterruptedException e) {
