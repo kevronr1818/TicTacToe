@@ -67,18 +67,14 @@ public class GameBoard {
         for (int r = 0; r < 3; r++){
             for(int c =0; c < 3; c++){
                 if(board[r][c]==1)
-
                 canvas.drawBitmap(letterOBitmap, c*getColumnWidth() + 50, r*getRowHeight() + 50, paint);
-
             }
         }
 
         for (int r = 0; r < 3; r++){
-            for(int c =0; c < 3; c++){
-                if(board[r][c]==2) {
-                    //canvas.drawCircle(c*getColumnWidth() + 100 ,r*getRowHeight() + 100, 35, paint);
+            for(int c = 0; c < 3; c++){
+                if(board[r][c]==2)
                     canvas.drawBitmap(letterXBitmap, c * getColumnWidth() + 50, r * getRowHeight() + 50, paint);
-                }
             }
         }
 
@@ -97,19 +93,6 @@ public class GameBoard {
         //draws lines going up and down
         canvas.drawLine(getColumnWidth(), 0, getColumnWidth(), DisplayAdvisor.maxY, paint);
         canvas.drawLine(getColumnWidth() * 2, 0, getColumnWidth() * 2, DisplayAdvisor.maxY, paint);
-
-    }
-
-    public void clearBoard() {
-        for (int i = 0; i < 3; i++) {
-
-            for (int j = 0; j < 3; j++) {
-
-                board[i][j] = 0;
-
-            }
-
-        }
 
     }
 
@@ -141,7 +124,20 @@ public class GameBoard {
 
                makeComputerWin();
        }
+    }
 
+    public void makeRandomComputerMove() {
+        Random random = new Random();
+        while(true){
+
+            int col = random.nextInt(3);
+            int row = random.nextInt(3);
+
+            if(board[row][col]==0) {
+                board[row][col] = 2;
+                return;
+            }
+        }
     }
 
     public boolean blockHumanWin() {
@@ -304,26 +300,14 @@ public class GameBoard {
             board[0][2]= 2;
             return true;
         }
-        //makeRandomComputerMove();
+        else {
+            makeRandomComputerMove();
+        }
         return false;
 
     }
 
-    public void makeRandomComputerMove() {
-        Random random = new Random();
-        while(true){
 
-            int col = random.nextInt(3);
-            int row = random.nextInt(3);
-
-            if(board[row][col]==0) {
-
-                board[row][col] = 2;
-                return;
-            }
-        }
-
-    }
 
     public boolean makeComputerWin(){
         ///test 1 (across in top row)
@@ -383,7 +367,6 @@ public class GameBoard {
             board[2][0]= 2;
             return true;
         }
-        //makeRandomComputerMove();
         return false;
 
     }

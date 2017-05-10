@@ -25,7 +25,6 @@ public class GameSurfaceView extends SurfaceView implements Runnable {
     public GameSurfaceView(Context context) {
         super(context);
         gameActivity = (GameActivity)context;
-        //bugBitmap = DisplayAdvisor.loadBitmap(gameActivity.getResources(), R.drawable.bug);
         positionX = (int)(50 * DisplayAdvisor.scaleX);
         positionY = (int)(50 * DisplayAdvisor.scaleY);
         letterOBitmap = DisplayAdvisor.loadScaledToIdeal(gameActivity.getResources(), (int)(100* DisplayAdvisor.scaleX), (int)(100 * DisplayAdvisor.scaleY), R.drawable.letter_o);
