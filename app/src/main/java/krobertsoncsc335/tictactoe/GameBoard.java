@@ -23,10 +23,6 @@ public class GameBoard {
     private GameActivity gameActivity;
     private MediaPlayer spotTakenSound;
 
-
-
-
-
     public GameBoard() {
 
 //Initiate the game board with blanks
@@ -84,7 +80,6 @@ public class GameBoard {
     public void drawBoard(Canvas canvas) {
         canvas.drawColor(Color.BLUE);
 
-
         //draws lines going left to right
         canvas.drawLine(0, getRowHeight(), DisplayAdvisor.maxX, getRowHeight(), paint);
         canvas.drawLine(0, getRowHeight() * 2, DisplayAdvisor.maxX, getRowHeight() * 2, paint);//getrowHeight x 2 same for column
@@ -115,15 +110,13 @@ public class GameBoard {
 
     public void handleComputerMove() {
 
-       if (makeComputerWin()== false){
-
-              blockHumanWin();
+       if(!makeComputerWin()){
+           blockHumanWin();
        }
-       else
-           if(blockHumanWin() == false){
-
-               makeComputerWin();
+       else if (!blockHumanWin()){
+           makeComputerWin();
        }
+
     }
 
     public void makeRandomComputerMove() {
