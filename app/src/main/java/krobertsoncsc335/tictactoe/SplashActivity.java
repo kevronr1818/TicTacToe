@@ -7,15 +7,14 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 
 public class SplashActivity extends AppCompatActivity {
-    private MediaPlayer mySound;
+    private MediaPlayer introGameSound;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        mySound = MediaPlayer.create(this, R.raw.introgamesound);
-        mySound.setLooping(true);
+        introGameSound = MediaPlayer.create(this, R.raw.introgamesound);
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -26,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 try {
                     sleep(5000);
-                    mySound.start();
+                    introGameSound.start();
                 } catch (InterruptedException e) {
                 } finally {
                     Intent openMainActivity = new Intent("krobertsoncsc335.GAMEACTIVITY");
